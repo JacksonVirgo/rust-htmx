@@ -1,9 +1,15 @@
 use actix_web::{Responder, HttpResponse, get, web};
+use askama::Template;
+use crate::views::IndexTemplate;
 
 #[get("/")]
 async fn load_main_page() -> impl Responder {
-    let html_content = std::fs::read_to_string("src/views/index.html");
-    match html_content {
+    let page = IndexTemplate {
+        data: "Data added via Rust.".to_string()
+    };
+
+    let rendered_page = page.render();
+    match rendered_page {
         Ok(content) => HttpResponse::Ok().content_type("text/html").body(content),
         Err(err) => {
             println!("Error: {}", err);
