@@ -1,6 +1,8 @@
-mod general_router;
 mod config;
+use crate::routes::general_router;
 use actix_web::{App, HttpServer};
+
+pub mod routes;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

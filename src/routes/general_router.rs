@@ -1,6 +1,5 @@
 use actix_web::{Responder, HttpResponse, get, web};
 
-
 #[get("/")]
 async fn load_main_page() -> impl Responder {
     let html_content = std::fs::read_to_string("src/views/index.html");
