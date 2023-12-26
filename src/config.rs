@@ -2,6 +2,7 @@ use core::panic;
 
 use dotenv;
 use std::{env, collections::HashMap};
+use std::sync::Once;
 
 pub struct Config {
     pub port: u16,
@@ -9,13 +10,12 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn new() -> Config {
+    fn new() -> Config {
         let env = dotenv::dotenv();
         match env {
             Ok(_) => {},
             Err(_) => panic!("No .env file found")
         };
-
 
         let seeking_values = ["PORT", "HOST"];
         let mut value_hashmap: HashMap<String, String> = HashMap::new();
@@ -36,7 +36,6 @@ impl Config {
             },
             None => port = 8080
         }
-        
 
         let host: String;
         match value_hashmap.get("HOST") {
@@ -44,10 +43,28 @@ impl Config {
             None => host = String::from("localhost")
         }
         
-
         return Config {
             port,
             host
         };
+    }
+}
+
+static mut APP_CONFIG: Option<Config> = None;
+static INIT: Once = Once::new();
+
+fn init_config() {
+    unsafe {
+        APP_CONFIG = Some(Config::new());
+    }
+}
+
+pub fn get_config() -> &'static Config {
+    INIT.call_once(|| {
+        init_config();
+    });
+
+    unsafe {
+        APP_CONFIG.as_ref().unwrap()
     }
 }
