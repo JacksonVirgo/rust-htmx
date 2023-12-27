@@ -1,11 +1,13 @@
 use actix_web::{Responder, HttpResponse, get, post, web};
 use actix_files as fs;
 use askama::Template;
-use crate::views::{IndexTemplate, ResponseExampleTemplate};
+
+use crate::views::pages::MainPageTemplate;
+use crate::views::partials::ResponseExampleTemplate;
 
 #[get("/")]
 async fn load_main_page() -> impl Responder {
-    let page = IndexTemplate {
+    let page = MainPageTemplate {
         data: "Data added via Rust.".to_string()
     };
 
