@@ -2,3 +2,5 @@
 .env
 .vscode
 .DS_Store
+
+/public/styles.css

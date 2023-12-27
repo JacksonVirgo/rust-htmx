@@ -4,11 +4,11 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Document</title>
-		<link rel="stylesheet" href="/public/centered_layout.css" />
+		<link rel="stylesheet" href="/public/styles.css" />
 		<script src="https://unpkg.com/htmx.org@1.9.10" defer></script>
 	</head>
-	<body>
-		<h1>Successfully loaded this page</h1>
+	<body class="w-full h-svh flex flex-col justify-center items-center">
+		<h1 class="text-3xl underline font-extrabold">Successfully loaded this page</h1>
 		<h2>{{ data }}</h2>
 
 		<button hx-post="/clicked" hx-swap="outerHTML">Click Me</button>
