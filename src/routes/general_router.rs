@@ -14,7 +14,7 @@ async fn load_main_page() -> impl Responder {
         Ok(content) => HttpResponse::Ok().content_type("text/html").body(content),
         Err(err) => {
             println!("Error: {}", err);
-            HttpResponse::Ok().body("Hello there.")
+            HttpResponse::InternalServerError().body("Cannot load page")
         }
     }
 }
