@@ -22,5 +22,5 @@ async fn load_main_page() -> impl Responder {
 pub fn config_general_routes(config: &mut web::ServiceConfig) {
     config
         .service(load_main_page)
-        .service(fs::Files::new("/static", "./public").show_files_listing());
+        .service(fs::Files::new("/public", "./public").show_files_listing());
 }
